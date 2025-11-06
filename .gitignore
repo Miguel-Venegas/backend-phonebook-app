@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files (keep your secrets local)
+.env
+
+# Build directories (do NOT ignore dist)
+# dist/
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# If you still have a local React source (optional)
+frontend/node_modules/
+frontend/dist/
+node_modules/

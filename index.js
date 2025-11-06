@@ -8,13 +8,15 @@
 
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 
 const app = express();
 
 app.use(express.json());
 // app.use(requestLogger);
 app.use(morgan('tiny'));
-
+app.use(cors());
+app.use(express.static('dist'));
 
 const ID_SIZE = 1000000;
 const ALPHABET_SIZE = 26;
@@ -46,10 +48,6 @@ app.get('/api/persons', (request, response) => {
 })
 
 
-const PORT = 3001;
-app.listen(PORT, () => {
-    console.log(`server running on ${PORT}`);
-});
 
 app.get('/info', (request, response) => {
     const entries = persons.length;
@@ -146,6 +144,12 @@ app.post('/api/persons', (request, response) => {
 
     response.status(201).send(`<p>added: ${JSON.stringify(person)}</p>`);
     
+});
+
+// PORT: render provides port #
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`)
 });
 
 const unknownEndpoint = (request, response) => {
