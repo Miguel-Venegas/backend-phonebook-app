@@ -81,7 +81,7 @@ app.post('/api/persons', (request, response, next) => {
     }
 
     const person = new Person({
-        name: body.name,
+        name: formatName(body.name),
         number: body.number
     })
 
@@ -102,7 +102,7 @@ app.put('/api/persons/:id', (request, response, next) => {
                 return response.status(404).end()
             }
 
-           person.name = name || person.name;
+           person.name = formatName(name) || formatName(person.name);
             person.number = number || person.number;
 
             return person.save().then((updatedPerson) => {
@@ -111,6 +111,17 @@ app.put('/api/persons/:id', (request, response, next) => {
         })
         .catch(error => next(error))
 })
+
+const formatName = (name) => {
+    if (!name) return '';
+
+    return name
+        .trim()
+        .split(/\s+/) // split by one or more spaces
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+};
+
 
 
 const unknownEndpoint = (request, response) => {
